@@ -2,6 +2,8 @@ import React from "react";
 import Employees from "./utils/API";
 import moment from "moment";
 
+//Thomas Rager
+
 function Table(props) {
   const employees=Employees.generate();
   const { picture, name, phone, email, dob }=props.employees;
