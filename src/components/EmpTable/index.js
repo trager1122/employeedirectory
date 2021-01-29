@@ -1,8 +1,11 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
+import { Table } from "reactstrap";
 import API from "../../utils/API";
 import moment from "moment";
-
-class Table extends Component{
+import Filter from "../Dropdowns/Filter";
+import Sort from "../Dropdowns/Sort";
+  
+class EmpTable extends Component{
   state={
     employees:[],
   };
@@ -13,9 +16,12 @@ class Table extends Component{
       .then(console.log("Component Mounted!"))
       .then(console.log(this.state.employees));
   }
+
+  function handleSortByName
   
   render() {
     return (
+      <Sort /> <Filter />
       <table class="table">
         <thead>
           <tr>
@@ -42,4 +48,4 @@ class Table extends Component{
   }
 }
 
-export default Table;
+export default EmpTable;

@@ -1,17 +1,21 @@
 import React from "react";
+import {
+  Dropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+} from "reactstrap";
 
-function Sort(){
-    return(
-        <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Sort:
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item alpha">Alphabetically</a>
-                <a class="dropdown-item dob">by Birthdate</a>
-            </div>
-        </div>
-    )
+function Sort(props) {
+    return (
+      <Dropdown isOpen={dropdownOpen} toggle={toggle}>
+        <DropdownToggle caret>Sort by</DropdownToggle>
+        <DropdownMenu>
+          <DropdownItem onClick={props.sortByName}>Name</DropdownItem>
+          <DropdownItem onClick={props.sortyByDOB}>Birthdate</DropdownItem>
+        </DropdownMenu>
+      </Dropdown>
+    );
 }
 
 export default Sort;
