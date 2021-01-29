@@ -9,7 +9,7 @@ class Table extends Component{
 
   componentDidMount() {
     API.generate()
-      .then(res => this.setState({ employees: res.data.message }))
+      .then(res => this.setState({ employees: res.data.results }))
       .then(console.log("Component Mounted!"))
       .then(console.log(this.state.employees));
   }
@@ -28,16 +28,16 @@ class Table extends Component{
         </thead>
         <tbody>
           {this.state.employees.map((employee) => (
-          <tr>
-            <td><img alt={employee.name} src={employee.picture.thumbnail} /></td>
-            <td>{employee.name}</td>
-            <td>{employee.phone}</td>
-            <td>{employee.email}</td>
-            <td>{moment(employee.dob.date).format("MM-DD-YYYY")}</td>
-          </tr>
-          ))}
+            <tr>
+              <td><img alt={`${employee.name.first} ${employee.name.last}`} src={employee.picture.thumbnail} /></td>
+              <td>{`${employee.name.first} ${employee.name.last}`}</td>
+              <td>{employee.phone}</td>
+              <td>{employee.email}</td>
+              <td>{moment(employee.dob.date).format("MM-DD-YYYY")}</td>
+            </tr>
+          ))};
         </tbody>
-      </table>
+     </table>
      );
   }
 }
