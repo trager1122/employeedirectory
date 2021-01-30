@@ -6,10 +6,10 @@ import Filter from "../Dropdowns/Filter";
 import Sort from "../Dropdowns/Sort";
   
 class EmpTable extends Component{
-  // sortByName=this.sortByName.bind(this);
-  // sortByDOB=this.sortByDOB.bind(this);
-  // filterByMale=this.filterByMale.bind(this);
-  // filterByFemale=this.filterByFemale.bind(this);
+  sortByName=this.sortByName.bind(this);
+  sortByDOB=this.sortByDOB.bind(this);
+  filterByMale=this.filterByMale.bind(this);
+  filterByFemale=this.filterByFemale.bind(this);
 
   state={
     employees:[],
@@ -17,9 +17,9 @@ class EmpTable extends Component{
 
   componentDidMount() {
     API.generate()
-      .then(res => this.setState({ employees: res.data.results }))
-      .then(console.log("Component Mounted!"))
-      .then(this.filterByMale());
+      .then(res => this.setState({ employees: res.data.results },()=>{
+        console.log("Component Mounted!");
+      }))
   }
   
   sortByName(event){
@@ -43,7 +43,7 @@ class EmpTable extends Component{
     let filteredEmployees=this.state.employees
     console.log(this.state.employees)
     this.setState({
-      employees:filteredEmployees.filter((e) => e.gender !== "male")
+      employees:filteredEmployees.filter((e) => e.gender === "male")
     },()=>{
       console.log(this.state.employees)
     })
@@ -53,15 +53,22 @@ class EmpTable extends Component{
     const {employees}=this.state
     let filteredEmployees=employees
     this.setState({
-      employees:filteredEmployees.filter((e) => e.gender !== "female")
+      employees:filteredEmployees.filter((e) => e.gender === "female")
     })
   }
 
-  
   render() {
+   let margin={
+      marginLeft: "75vw"
+    }
     return (
       <div>
-        <Sort /> <Filter />
+        <span className="d-flex justify-content-start">
+        <Sort sortByName={this.sortByName} sortByDOB={this.sortByDOB}/>
+        <Filter className="d-flex filterBtn justify-content-end" 
+        filterByMale={this.filterByMale} filterByFemale={this.filterByFemale}
+        />
+        </span>
         <Table>
           <thead>
           <tr>
