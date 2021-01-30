@@ -58,9 +58,6 @@ class EmpTable extends Component{
   }
 
   render() {
-   let margin={
-      marginLeft: "75vw"
-    }
     return (
       <div>
         <span className="d-flex justify-content-start">
