@@ -6,6 +6,11 @@ import Filter from "../Dropdowns/Filter";
 import Sort from "../Dropdowns/Sort";
   
 class EmpTable extends Component{
+  // sortByName=this.sortByName.bind(this);
+  // sortByDOB=this.sortByDOB.bind(this);
+  // filterByMale=this.filterByMale.bind(this);
+  // filterByFemale=this.filterByFemale.bind(this);
+
   state={
     employees:[],
   };
@@ -14,16 +19,51 @@ class EmpTable extends Component{
     API.generate()
       .then(res => this.setState({ employees: res.data.results }))
       .then(console.log("Component Mounted!"))
-      .then(console.log(this.state.employees));
+      .then(this.filterByMale());
+  }
+  
+  sortByName(event){
+    const {employees}=this.state
+    let sortedEmployees=employees
+    this.setState({
+      employees:sortedEmployees.sort((a, b) => a.name.last.localeCompare(b.name.last))
+    })
   }
 
-  function handleSortByName
+  sortByDOB(event){
+    const {employees}=this.state
+    let sortedEmployees=employees
+    this.setState({
+      employees:sortedEmployees.sort((a, b) => a.dob.date.localeCompare(b.dob.date))
+    })
+  }
+
+  filterByMale(event){
+    // const {employees}=this.state
+    let filteredEmployees=this.state.employees
+    console.log(this.state.employees)
+    this.setState({
+      employees:filteredEmployees.filter((e) => e.gender !== "male")
+    },()=>{
+      console.log(this.state.employees)
+    })
+  }
+
+  filterByFemale(event){
+    const {employees}=this.state
+    let filteredEmployees=employees
+    this.setState({
+      employees:filteredEmployees.filter((e) => e.gender !== "female")
+    })
+  }
+
   
   render() {
     return (
-      <Sort /> <Filter />
-      <table class="table">
-        <thead>
+      <div>
+        <Sort /> <Filter />
+        <Table>
+          <thead>
           <tr>
             <th scope="col">Picture</th>
             <th scope="col">Name</th>
@@ -43,8 +83,9 @@ class EmpTable extends Component{
             </tr>
           ))};
         </tbody>
-     </table>
-     );
+      </Table>
+      </div>
+    );
   }
 }
 
